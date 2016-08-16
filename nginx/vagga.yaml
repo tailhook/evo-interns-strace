@@ -1,0 +1,14 @@
+containers:
+ nginx:
+  setup:
+  - !Alpine v3.4
+  - !Install [nginx]
+
+commands:
+ run: !Supervise
+  children:
+   #tangle: !Command
+   #  ...
+   nginx: !Command
+    container: nginx
+    run: [nginx, -c, /work/nginx.conf]
