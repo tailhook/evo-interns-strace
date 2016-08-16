@@ -19,7 +19,7 @@ commands:
 
   redis: !Command
     container: redis
-    run: [redis-server, --daemonize, no]
+    run: [redis-server, --daemonize, no, --bind, localhost]
 
   redis-cli: !Command
     container: redis
