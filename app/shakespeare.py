@@ -3,6 +3,7 @@ import random
 from xml.sax import parse, ContentHandler
 import falcon
 import json
+import sys
 from io import StringIO
 
 
@@ -13,11 +14,8 @@ class Parser(ContentHandler):
     def __init__(self, buf):
         self.__buf = buf
     def characters(self, text):
-        text = text.strip()
-        if text:
-            self.__buf.write('<p>')
-            self.__buf.write(text)
-            self.__buf.write('</p>')
+        if text.strip():
+            self.__buf.write(text+'\n')
 
 
 class Main:
@@ -25,7 +23,9 @@ class Main:
         """Handles GET requests"""
         filename = random.choice(list(DIR.iterdir()))
         buf = StringIO()
+        buf.write('<pre>')
         parse(str(filename), Parser(buf))
+        buf.write('</pre>')
         resp.content_type = 'text/html'
         resp.body = buf.getvalue()
 

@@ -3,9 +3,10 @@ containers:
     setup:
     - !Alpine v3.4
     - !Install [ca-certificates, strace]
-    - !Py3Install [six, mimeparse, falcon, werkzeug]
+    - !PipConfig { dependencies: true }
+    - !Py3Install [falcon, gunicorn]
 
 commands:
   run: !Command
     container: py
-    run: [python3, -m, werkzeug.serving, shakespeare:app]
+    run: [gunicorn, shakespeare:app]
