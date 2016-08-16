@@ -1,0 +1,12 @@
+containers:
+  py:
+    setup:
+    - !Alpine v3.4
+    - !Install [ca-certificates, strace]
+    - !PipConfig { dependencies: true }
+    - !Py3Install [aiohttp, cowpy]
+
+commands:
+  run: !Command
+    container: py
+    run: [python3, slowpoke.py]
