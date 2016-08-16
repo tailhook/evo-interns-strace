@@ -4,9 +4,23 @@ containers:
     - !Alpine v3.4
     - !Install [ca-certificates, strace]
     - !PipConfig { dependencies: true }
-    - !Py3Install [falcon, gunicorn]
+    - !Py3Install [falcon, gunicorn, redis]
+
+  redis:
+    setup:
+    - !Alpine v3.4
+    - !Install [redis]
 
 commands:
+
   run: !Command
     container: py
     run: [gunicorn, shakespeare:app]
+
+  redis: !Command
+    container: redis
+    run: [redis-server, --daemonize, no]
+
+  redis-cli: !Command
+    container: redis
+    run: [redis-cli]
