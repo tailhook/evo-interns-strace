@@ -75,6 +75,11 @@ syscalls: processes
 
 clone execve exit_group
 
+non-syscalls: processes
+=======================
+
+time.time() / gettimeofday
+
 
 demo: async
 ===========
